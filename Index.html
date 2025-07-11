@@ -26,15 +26,35 @@
 <body>
   <h1>Welcome to LinkMine</h1>
 
+  <!-- Site 1: Radio Garden -->
   <div class="site-box" onclick="window.location.href='https://radio.garden'">
     <h2>Radio Garden</h2>
     <p>Explore live radio from around the world</p>
   </div>
 
+  <!-- Site 2: Window Swap -->
   <div class="site-box" onclick="window.location.href='https://www.window-swap.com'">
     <h2>Window Swap</h2>
     <p>Look through windows around the world</p>
   </div>
 
+  <!-- Site 3: Mystery Box -->
+  <div class="site-box" onclick="goToMysterySite()">
+    <h2>🎲 Mystery Site</h2>
+    <p>Click to explore a surprise website!</p>
+  </div>
+
+  <script>
+    function goToMysterySite() {
+      const mysterySites = [
+        "https://theuselessweb.com",
+        "https://pointerpointer.com",
+        "https://zoomquilt.org",
+        "https://ncase.me/door/"
+      ];
+      const randomSite = mysterySites[Math.floor(Math.random() * mysterySites.length)];
+      window.location.href = randomSite;
+    }
+  </script>
 </body>
 </html>
