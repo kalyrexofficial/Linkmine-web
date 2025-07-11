@@ -38,39 +38,33 @@
 <body>
   <h1>Welcome to LinkMine</h1>
 
-  <!-- Site 1: Radio Garden -->
   <div class="site-box" onclick="window.location.href='https://radio.garden'">
     <h2>Radio Garden</h2>
     <p>Explore live radio from around the world</p>
   </div>
 
-  <!-- Site 2: Window Swap -->
   <div class="site-box" onclick="window.location.href='https://www.window-swap.com'">
     <h2>Window Swap</h2>
     <p>Look through windows around the world</p>
   </div>
 
-  <!-- Site 3: Mystery Site -->
   <div class="site-box" onclick="goToMysterySite()">
     <h2>🎲 Mystery Site</h2>
     <p>Click to explore a surprise website!</p>
   </div>
 
-  <!-- Site 4: Premium Locked Site -->
   <div class="site-box" onclick="alert('🔒 This is a premium site. Subscribe to unlock!')">
     <h2>🔒 Premium Site</h2>
     <p>Exclusive content — available only for subscribers</p>
   </div>
 
-  <!-- Logout Button -->
   <button class="logout-btn" onclick="logout()">Logout</button>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+  <!-- Firebase Modular SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-  <script>
-    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyDzQHS42ch0jDmjDv-AzE38nns8E8DMr2c",
       authDomain: "clickify-a9d91.firebaseapp.com",
@@ -81,18 +75,27 @@
       measurementId: "G-HCWNXM3ZF6"
     };
 
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-    // ✅ Redirect to login if user not signed in
-    auth.onAuthStateChanged((user) => {
+    onAuthStateChanged(auth, (user) => {
       if (!user) {
         window.location.href = "login.html";
       }
     });
 
-    function goToMysterySite() {
+    window.logout = function () {
+      signOut(auth)
+        .then(() => {
+          alert("Logged out!");
+          window.location.href = "login.html";
+        })
+        .catch((error) => {
+          console.error("Logout error:", error.message);
+        });
+    };
+
+    window.goToMysterySite = function () {
       const mysterySites = [
         "https://theuselessweb.com",
         "https://pointerpointer.com",
@@ -101,16 +104,7 @@
       ];
       const randomSite = mysterySites[Math.floor(Math.random() * mysterySites.length)];
       window.location.href = randomSite;
-    }
-
-    function logout() {
-      auth.signOut().then(() => {
-        alert("Logged out!");
-        window.location.href = "login.html";
-      }).catch((error) => {
-        console.error("Logout error:", error.message);
-      });
-    }
+    };
   </script>
 </body>
 </html>
