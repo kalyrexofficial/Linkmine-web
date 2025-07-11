@@ -38,6 +38,7 @@
 <body>
   <h1>Welcome to LinkMine</h1>
 
+  <!-- Site links -->
   <div class="site-box" onclick="window.location.href='https://radio.garden'">
     <h2>Radio Garden</h2>
     <p>Explore live radio from around the world</p>
@@ -53,11 +54,12 @@
     <p>Click to explore a surprise website!</p>
   </div>
 
-  <div class="site-box" onclick="alert('🔒 This is a premium site. Subscribe to unlock!')">
+  <div class="site-box" onclick="alert('🔒 Premium site. Subscribe to unlock!')">
     <h2>🔒 Premium Site</h2>
-    <p>Exclusive content — available only for subscribers</p>
+    <p>Exclusive content for subscribers</p>
   </div>
 
+  <!-- Logout -->
   <button class="logout-btn" onclick="logout()">Logout</button>
 
   <!-- Firebase Modular SDKs -->
@@ -78,23 +80,24 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
+    // Check login
     onAuthStateChanged(auth, (user) => {
       if (!user) {
         window.location.href = "login.html";
       }
     });
 
+    // Logout
     window.logout = function () {
-      signOut(auth)
-        .then(() => {
-          alert("Logged out!");
-          window.location.href = "login.html";
-        })
-        .catch((error) => {
-          console.error("Logout error:", error.message);
-        });
+      signOut(auth).then(() => {
+        alert("Logged out!");
+        window.location.href = "login.html";
+      }).catch((error) => {
+        console.error("Logout error:", error.message);
+      });
     };
 
+    // Mystery site
     window.goToMysterySite = function () {
       const mysterySites = [
         "https://theuselessweb.com",
