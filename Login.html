@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LinkMine Login</title>
+</head>
+<body>
+  <h1>Welcome to LinkMine</h1>
+  <button onclick="login()">Login with Google</button>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // ✅ Your Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDzQHS42ch0jDmjDv-AzE38nns8E8DMr2c",
+      authDomain: "clickify-a9d91.firebaseapp.com",
+      projectId: "clickify-a9d91",
+      storageBucket: "clickify-a9d91.appspot.com",
+      messagingSenderId: "1089150401964",
+      appId: "1:1089150401964:web:6f0721cb2f46ff45190e09"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    // Login with redirect
+    function login() {
+      auth.signInWithRedirect(provider);
+    }
+
+    // Handle redirect result
+    auth.getRedirectResult()
+      .then((result) => {
+        if (result.user) {
+          alert("Welcome " + result.user.email);
+          window.location.href = "index.html";
+        }
+      })
+      .catch((error) => {
+        console.error("Login error:", error.message);
+      });
+  </script>
+</body>
+</html>
