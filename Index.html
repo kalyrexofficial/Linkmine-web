@@ -21,6 +21,18 @@
     .site-box:hover {
       background: #e6f0ff;
     }
+    .logout-btn {
+      margin-top: 40px;
+      padding: 10px 20px;
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .logout-btn:hover {
+      background: #e60000;
+    }
   </style>
 </head>
 <body>
@@ -50,6 +62,9 @@
     <p>Exclusive content — available only for subscribers</p>
   </div>
 
+  <!-- Logout Button -->
+  <button class="logout-btn" onclick="logout()">Logout</button>
+
   <script>
     function goToMysterySite() {
       const mysterySites = [
@@ -60,6 +75,11 @@
       ];
       const randomSite = mysterySites[Math.floor(Math.random() * mysterySites.length)];
       window.location.href = randomSite;
+    }
+
+    function logout() {
+      alert("Logged out!");
+      window.location.href = "login.html";
     }
   </script>
 </body>
