@@ -1,18 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>LinkMine Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - LinkMine</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+      background-color: #f2f2f2;
+    }
+    h1 {
+      color: #333;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #4285F4;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #357ae8;
+    }
+  </style>
 </head>
 <body>
   <h1>Welcome to LinkMine</h1>
-  <button onclick="login()">Login with Google</button>
+  <button onclick="loginWithGoogle()">Login with Google</button>
 
   <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
 
   <script>
-    // ✅ Your Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyDzQHS42ch0jDmjDv-AzE38nns8E8DMr2c",
       authDomain: "clickify-a9d91.firebaseapp.com",
@@ -23,26 +47,22 @@
     };
 
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+    const app = firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const provider = new firebase.auth.GoogleAuthProvider();
 
-    // Login with redirect
-    function login() {
-      auth.signInWithRedirect(provider);
-    }
-
-    // Handle redirect result
-    auth.getRedirectResult()
-      .then((result) => {
-        if (result.user) {
-          alert("Welcome " + result.user.email);
+    function loginWithGoogle() {
+      auth.signInWithPopup(provider)
+        .then((result) => {
+          const user = result.user;
+          console.log("Logged in as:", user.email);
           window.location.href = "index.html";
-        }
-      })
-      .catch((error) => {
-        console.error("Login error:", error.message);
-      });
+        })
+        .catch((error) => {
+          console.error("Login error:", error.message);
+          alert("Login failed. Check console for error.");
+        });
+    }
   </script>
 </body>
 </html>
