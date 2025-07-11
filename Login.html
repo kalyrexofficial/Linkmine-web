@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login - LinkMine</title>
+  <title>Login - Clickify</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -29,40 +29,40 @@
   </style>
 </head>
 <body>
-  <h1>Welcome to LinkMine</h1>
+  <h1>Welcome to Clickify</h1>
   <button onclick="loginWithGoogle()">Login with Google</button>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+  <!-- Firebase Modular SDKs using type="module" -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
-  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyDzQHS42ch0jDmjDv-AzE38nns8E8DMr2c",
       authDomain: "clickify-a9d91.firebaseapp.com",
       projectId: "clickify-a9d91",
       storageBucket: "clickify-a9d91.appspot.com",
       messagingSenderId: "1089150401964",
-      appId: "1:1089150401964:web:6f0721cb2f46ff45190e09"
+      appId: "1:1089150401964:web:6f0721cb2f46ff45190e09",
+      measurementId: "G-HCWNXM3ZF6"
     };
 
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const provider = new firebase.auth.GoogleAuthProvider();
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
 
-    function loginWithGoogle() {
-      auth.signInWithPopup(provider)
+    // Expose login function globally
+    window.loginWithGoogle = () => {
+      signInWithPopup(auth, provider)
         .then((result) => {
           const user = result.user;
-          console.log("Logged in as:", user.email);
-          window.location.href = "index.html";
+          alert("Welcome " + user.displayName);
+          window.location.href = "index.html"; // go to homepage
         })
         .catch((error) => {
-          console.error("Login error:", error.message);
-          alert("Login failed. Check console for error.");
+          alert("Login failed: " + error.message);
         });
-    }
+    };
   </script>
 </body>
 </html>
