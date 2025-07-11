@@ -2,9 +2,34 @@
 <html>
 <head>
   <title>LinkMine Home</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      text-align: center;
+      padding-top: 50px;
+    }
+    .site-box {
+      background: white;
+      padding: 20px;
+      margin: 20px auto;
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+    .site-box:hover {
+      background: #e6f0ff;
+    }
+  </style>
 </head>
 <body>
   <h1>Welcome to LinkMine</h1>
-  <p>You are now logged in!</p>
+
+  <div class="site-box" onclick="window.location.href='https://radio.garden'">
+    <h2>Radio Garden</h2>
+    <p>Explore live radio from around the world</p>
+  </div>
+
 </body>
 </html>
