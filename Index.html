@@ -70,7 +70,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
 
   <script>
-    // Your Firebase config
+    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyDzQHS42ch0jDmjDv-AzE38nns8E8DMr2c",
       authDomain: "clickify-a9d91.firebaseapp.com",
@@ -84,6 +84,13 @@
     // Initialize Firebase
     const app = firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
+
+    // ✅ Redirect to login if user not signed in
+    auth.onAuthStateChanged((user) => {
+      if (!user) {
+        window.location.href = "login.html";
+      }
+    });
 
     function goToMysterySite() {
       const mysterySites = [
