@@ -65,7 +65,26 @@
   <!-- Logout Button -->
   <button class="logout-btn" onclick="logout()">Logout</button>
 
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+
   <script>
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDzQHS42ch0jDmjDv-AzE38nns8E8DMr2c",
+      authDomain: "clickify-a9d91.firebaseapp.com",
+      projectId: "clickify-a9d91",
+      storageBucket: "clickify-a9d91.appspot.com",
+      messagingSenderId: "1089150401964",
+      appId: "1:1089150401964:web:6f0721cb2f46ff45190e09",
+      measurementId: "G-HCWNXM3ZF6"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
     function goToMysterySite() {
       const mysterySites = [
         "https://theuselessweb.com",
@@ -78,8 +97,12 @@
     }
 
     function logout() {
-      alert("Logged out!");
-      window.location.href = "login.html";
+      auth.signOut().then(() => {
+        alert("Logged out!");
+        window.location.href = "login.html";
+      }).catch((error) => {
+        console.error("Logout error:", error.message);
+      });
     }
   </script>
 </body>
